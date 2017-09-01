@@ -4,16 +4,18 @@
 using namespace std;
 
 class Numero {
-	private:
+	protected:
 		int numero;
 	public:
 		Numero();
 		Numero(int);
+		virtual ~Numero();
 		int getNumero();
 		void setNumero(int);
-		Numero operator+ (Numero& pnumero);
-		Numero operator- (Numero& pnumero);
-		Numero operator* (Numero& pnumero);
+		Numero operator+ (int pnumero);
+		Numero operator- (int pnumero);
+		Numero operator* (int pnumero);
+		virtual void print();
 };
 
 #endif

@@ -2,10 +2,12 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <typeinfo>
 #include "Numero.h"
 #include "Binario.h"
 #include "Octal.h"
 #include "Hexadecimal.h"
+#include <math.h>
 using namespace std;
 
 int main() {
@@ -37,7 +39,14 @@ int main() {
 							   }
 						   }
 						   if ((contador == numero.size()) - 1 && (numero[numero.size() - 1] == 'b')) {
-							   Binario num(stoi(numero));
+							   stringstream nuevo_numero;
+							   for (int i = 0; i < numero.size(); i++) {
+								   if (i != numero.size() - 1) {
+									   nuevo_numero << numero[i];
+								   }
+							   }
+							   string Nuevo_Numero = nuevo_numero.str();
+							   Binario num(stoi(Nuevo_Numero));
 							   numeros.push_back(num);
 							   cout << "Binario Agregado!!" << endl;
 							   numero_correcto = false;
@@ -60,8 +69,16 @@ int main() {
 							   bool entrar = false;
 							   if (numero.size() >= 2) {
 								   if ((contador2 == numero.size() - 2) && (numero[0] == '0') && (numero[1] == 'c')) {
-									   Octal num2(stoi(numero));
+									   stringstream nuevo_numero2;
+									   for (int i = 0; i < numero.size(); i++) {
+										   if (i != 0 && i != 1) {
+											   nuevo_numero2 << numero[i];
+										   }
+									   }
+									   string Nuevo_Numero2 = nuevo_numero2.str();
+									   Octal num2(stoi(Nuevo_Numero2));
 									   numeros.push_back(num2);
+									   cout << stoi(Nuevo_Numero2) << endl;
 									   cout << "Octal Agregado!!" << endl;
 									   numero_correcto = false;
 									   entrar = true;
@@ -87,8 +104,16 @@ int main() {
 								   bool entrar2 = false;
 								   if (numero.size() >= 2) {
 									   if ((contador3 == numero.size() - 2) && (numero[0] == '0') && (numero[1] == 'x')) {
-										   Hexadecimal num3(stoi(numero));
+										   stringstream nuevo_numero3;
+										   for (int i = 0; i < numero.size(); i++) {
+											   if (i != 0 && i != 1) {
+												   nuevo_numero3 << numero[i];
+											   }
+										   }
+										   string Nuevo_Numero3 = nuevo_numero3.str();
+										   Hexadecimal num3(stoi(Nuevo_Numero3));
 										   numeros.push_back(num3);
+										   cout << stoi(Nuevo_Numero3) << endl;
 										   cout << "Hexadecimal Agregado!!" << endl;
 										   numero_correcto = false;
 										   entrar2 = true;
@@ -103,9 +128,14 @@ int main() {
 										   palabra_numero3 = ss3.str();
 										   int digito3 = stoi(palabra_numero3);
 										   if (digito3 >= 0 && digito3 <= 9) {
-												   contador4++;
+											   contador4++;
 										   }
-
+									   }
+									   if (contador4 == numero.size()) {
+										   Numero num4(stoi(numero));
+										   numeros.push_back(num4);
+										   cout << "Decimal Agregado!!" << endl;
+										   numero_correcto = false;
 									   }
 								   }
 							   }		
@@ -116,7 +146,50 @@ int main() {
 					   } while (numero_correcto);
 				   }break;
 			case 2:{
-
+					   cout << "-> Sumar" << endl;
+					   for (int i = 0; i < numeros.size(); i++) {
+						   if(typeid(numeros.at(i))== typeid(Binario)){
+							   cout << "binario" << endl;
+						   } else if (typeid(numeros.at(i)) == typeid(Hexadecimal)) {
+							   cout << "hexadecimal" << endl;
+						   } else if (typeid(numeros.at(i)) == typeid(Octal)) {
+							   cout << "octal" << endl;
+						   } else {
+							   cout << "this should never be true but well here we are" <<endl;
+						   }
+					   }
+					   int hexa = 10011011;
+					   stringstream nuevo_numero;
+						nuevo_numero << hexa;
+					   string NuevoNumero = nuevo_numero.str();
+					   cout << NuevoNumero << endl;
+					   int size = NuevoNumero.size() - 1;
+					   int acumulador = 0;
+					   for (int i = 0; i < NuevoNumero.size(); i++) {
+							if (NuevoNumero[i] == '0') {
+								acumulador += 0 * (pow(2, size));
+							} else {
+								acumulador += 1 * (pow(2, size));
+							}
+							size--;
+					   }
+					   cout << acumulador << endl;
+					   int octal = 37;
+						stringstream nuevo_numero2;
+						nuevo_numero2 << octal;
+					   string NuevoNumero2 = nuevo_numero2.str();
+					   cout << NuevoNumero2 << endl;
+					   int acumulador2 = 0;
+					   int size2 = NuevoNumero2.size() - 1;
+						for (int i = 0; i < NuevoNumero2.size(); i++) {
+							stringstream nuevo_numero3;
+							nuevo_numero3 << NuevoNumero2.at(i);
+					   		string NuevoNumero3 = nuevo_numero3.str();
+							cout << NuevoNumero3 << endl;
+							acumulador2 += stoi(NuevoNumero3) * (pow(8, size2));
+							size2 --;
+						}
+						cout << acumulador2 << endl;
 				   }break;
 			case 3:{
 

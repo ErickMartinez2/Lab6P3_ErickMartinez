@@ -5,7 +5,9 @@ using namespace std;
 
 class Binario: public Numero {
 	public:
-		Binario(int);	
+		Binario(int);
+		~Binario();	
+		void print();
 };
 
 #endif

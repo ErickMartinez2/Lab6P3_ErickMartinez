@@ -15,3 +15,6 @@ Hexadecimal.o: Hexadecimal.cpp Hexadecimal.h
 
 Octal.o: Octal.cpp Octal.h
 	g++ -c Octal.cpp
+
+clean:
+	rm *.o Main

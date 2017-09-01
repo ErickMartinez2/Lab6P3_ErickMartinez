@@ -5,7 +5,9 @@ using namespace std;
 
 class Hexadecimal: public Numero {
 	public:
-		Hexadecimal(int);	
+		Hexadecimal(int);
+		~Hexadecimal();
+		void print();
 };
 
 #endif

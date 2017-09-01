@@ -5,7 +5,9 @@ using namespace std;
 
 class Octal: public Numero {
 	public:
-		Octal(int);	
+		Octal(int);
+		~Octal();
+		void print();
 };
 
 #endif
