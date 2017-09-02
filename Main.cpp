@@ -10,6 +10,10 @@
 #include <math.h>
 using namespace std;
 
+string Octal1(int);
+string Hexa1(int);
+string Binario1(int);
+
 int main() {
 	int opcion;
 	vector<Numero> numeros;
@@ -181,7 +185,6 @@ int main() {
 						   stringstream nuevo_numero2;
 						   nuevo_numero2 << numeros.at(numero1).getNumero();
 						   string NuevoNumero2 = nuevo_numero2.str();
-						   cout << NuevoNumero2 << endl;
 						   int acumulador2 = 0;
 						   int size2 = NuevoNumero2.size() - 1;
 						   for (int i = 0; i < NuevoNumero2.size(); i++) {
@@ -217,7 +220,6 @@ int main() {
 						   stringstream nuevo_numero2;
 						   nuevo_numero2 << numeros.at(numero2).getNumero();
 						   string NuevoNumero2 = nuevo_numero2.str();
-						   cout << NuevoNumero2 << endl;
 						   int acumulador2 = 0;
 						   int size2 = NuevoNumero2.size() - 1;
 						   for (int i = 0; i < NuevoNumero2.size(); i++) {
@@ -231,8 +233,12 @@ int main() {
 					   } 
 
 					   Numero nuevo_num = numeros.at(numero1) + numeros.at(numero2);
-					   cout << "Suma Final: " << nuevo_num.getNumero() << endl;
-					  
+					   //cout << "Suma Final: " << nuevo_num.getNumero() << endl;
+					   cout << "-> Suma Final " << endl;
+					   cout << "En Decimal: " << nuevo_num.getNumero() << endl;
+					   cout << "En Hexadecimal: " << Hexa1(nuevo_num.getNumero()) << endl;
+					   cout << "En Octal: " << Octal1(nuevo_num.getNumero()) << endl;
+					   cout << "En Binario: " << Binario1(nuevo_num.getNumero()) << endl;
 				   }break;
 			case 3:{
 					cout << "-> Restar" << endl;
@@ -271,7 +277,6 @@ int main() {
 						   stringstream nuevo_numero2;
 						   nuevo_numero2 << numeros.at(numero1).getNumero();
 						   string NuevoNumero2 = nuevo_numero2.str();
-						   cout << NuevoNumero2 << endl;
 						   int acumulador2 = 0;
 						   int size2 = NuevoNumero2.size() - 1;
 						   for (int i = 0; i < NuevoNumero2.size(); i++) {
@@ -321,7 +326,12 @@ int main() {
 					   } 
 
 					   Numero nuevo_num = numeros.at(numero1) - numeros.at(numero2);
-					   cout << "Resta Final: " << nuevo_num.getNumero() << endl;
+						cout << "-> Resta Final " << endl;
+					   cout << "En Decimal: " << nuevo_num.getNumero() << endl;
+					   cout << "En Hexadecimal: " << Hexa1(nuevo_num.getNumero()) << endl;
+					   cout << "En Octal: " << Octal1(nuevo_num.getNumero()) << endl;
+					   cout << "En Binario: " << Binario1(nuevo_num.getNumero()) << endl;
+
 
 				   }break;
 			case 4:{
@@ -361,7 +371,6 @@ int main() {
 						   stringstream nuevo_numero2;
 						   nuevo_numero2 << numeros.at(numero1).getNumero();
 						   string NuevoNumero2 = nuevo_numero2.str();
-						   cout << NuevoNumero2 << endl;
 						   int acumulador2 = 0;
 						   int size2 = NuevoNumero2.size() - 1;
 						   for (int i = 0; i < NuevoNumero2.size(); i++) {
@@ -411,7 +420,12 @@ int main() {
 					   } 
 
 					   Numero nuevo_num = numeros.at(numero1) * numeros.at(numero2);
-					   cout << "Multiplicacion Final: " << nuevo_num.getNumero() << endl;
+						cout << "-> Multiplicacion Final " << endl;
+					   cout << "En Decimal: " << nuevo_num.getNumero() << endl;
+					   cout << "En Hexadecimal: " << Hexa1(nuevo_num.getNumero()) << endl;
+					   cout << "En Octal: " << Octal1(nuevo_num.getNumero()) << endl;
+					   cout << "En Binario: " << Binario1(nuevo_num.getNumero()) << endl;
+
 				   }break;
 			case 5:{
 					   cout << "Hasta Pronto!!" << endl;
@@ -421,3 +435,29 @@ int main() {
 	} while (opcion != 5);	
 	return 0;
 }
+
+string Binario1(int num) {
+	string numero;
+	while (num != 0) {
+		numero = (num % 2 == 0 ?"0":"1") + numero;
+		num /= 2;
+	}
+	return numero;
+}
+
+string Octal1(int num) {
+	string numero;
+	stringstream ss;
+	ss << std::oct << num;
+	ss >> numero;
+	return numero;
+}
+
+string Hexa1(int num) {
+	string numero;
+	stringstream ss;
+	ss << std::hex << num;
+	ss >> numero;
+	return numero;
+}
+
