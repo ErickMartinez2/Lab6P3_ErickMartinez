@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Hexadecimal::Hexadecimal(int pnumero):Numero(pnumero) {
+Hexadecimal::Hexadecimal(int pnumero, string ptipo):Numero(pnumero, ptipo) {
 	
 }
 

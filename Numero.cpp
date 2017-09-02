@@ -10,22 +10,23 @@ Numero::~Numero() {
 
 }
 
-Numero::Numero(int  pnumero) {
+Numero::Numero(int  pnumero, string ptipo) {
 	numero = pnumero;
+	tipo = ptipo;
 }
 
-Numero Numero::operator+ (int pnumero) {
-	Numero resp(this -> numero + pnumero);
+Numero Numero::operator+ (Numero& rnumero) {
+	Numero resp(this -> numero + rnumero.getNumero(), "Resultado");
 	return resp;
 }
 
-Numero Numero::operator- (int pnumero) {
-	Numero resp(this -> numero - pnumero);
+Numero Numero::operator- (Numero& rnumero) {
+	Numero resp(this -> numero - rnumero.getNumero() , "Resultado");
 	return resp;
 }
 
-Numero Numero::operator* (int pnumero) {
-	Numero resp(this -> numero * pnumero);
+Numero Numero::operator* (Numero& rnumero) {
+	Numero resp(this -> numero * rnumero.getNumero(), "Resultado");
 	return resp;
 }
 
@@ -39,4 +40,8 @@ void Numero::setNumero(int pnumero) {
 
 void Numero::print(){
 	cout << "Soy un Numero!!" << endl;
+}
+
+string Numero::getTipo() {
+	return tipo;
 }

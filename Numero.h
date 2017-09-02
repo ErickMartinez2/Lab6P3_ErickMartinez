@@ -6,15 +6,17 @@ using namespace std;
 class Numero {
 	protected:
 		int numero;
+		string tipo;
 	public:
 		Numero();
-		Numero(int);
+		Numero(int, string);
 		virtual ~Numero();
 		int getNumero();
 		void setNumero(int);
-		Numero operator+ (int pnumero);
-		Numero operator- (int pnumero);
-		Numero operator* (int pnumero);
+		string getTipo();
+		Numero operator+ (Numero& rnumero);
+		Numero operator- (Numero& rnumero);
+		Numero operator* (Numero& rnumero);
 		virtual void print();
 };
 

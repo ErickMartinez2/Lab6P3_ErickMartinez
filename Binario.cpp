@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Binario::Binario(int pnumero):Numero(pnumero) {
+Binario::Binario(int pnumero, string ptipo):Numero(pnumero, ptipo) {
 	
 }
 

@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Octal::Octal(int pnumero):Numero(pnumero) {
+Octal::Octal(int pnumero, string ptipo):Numero(pnumero,ptipo) {
 	
 }
 

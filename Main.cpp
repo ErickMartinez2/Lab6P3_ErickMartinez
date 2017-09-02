@@ -46,7 +46,7 @@ int main() {
 								   }
 							   }
 							   string Nuevo_Numero = nuevo_numero.str();
-							   Binario num(stoi(Nuevo_Numero));
+							   Binario num(stoi(Nuevo_Numero), "Binario");
 							   numeros.push_back(num);
 							   cout << "Binario Agregado!!" << endl;
 							   numero_correcto = false;
@@ -76,9 +76,8 @@ int main() {
 										   }
 									   }
 									   string Nuevo_Numero2 = nuevo_numero2.str();
-									   Octal num2(stoi(Nuevo_Numero2));
+									   Octal num2(stoi(Nuevo_Numero2), "Octal");
 									   numeros.push_back(num2);
-									   cout << stoi(Nuevo_Numero2) << endl;
 									   cout << "Octal Agregado!!" << endl;
 									   numero_correcto = false;
 									   entrar = true;
@@ -111,7 +110,7 @@ int main() {
 											   }
 										   }
 										   string Nuevo_Numero3 = nuevo_numero3.str();
-										   Hexadecimal num3(stoi(Nuevo_Numero3));
+										   Hexadecimal num3(stoi(Nuevo_Numero3), "Hexadecimal");
 										   numeros.push_back(num3);
 										   cout << stoi(Nuevo_Numero3) << endl;
 										   cout << "Hexadecimal Agregado!!" << endl;
@@ -132,7 +131,7 @@ int main() {
 										   }
 									   }
 									   if (contador4 == numero.size()) {
-										   Numero num4(stoi(numero));
+										   Numero num4(stoi(numero), "Decimal");
 										   numeros.push_back(num4);
 										   cout << "Decimal Agregado!!" << endl;
 										   numero_correcto = false;
@@ -148,54 +147,271 @@ int main() {
 			case 2:{
 					   cout << "-> Sumar" << endl;
 					   for (int i = 0; i < numeros.size(); i++) {
-						   if(typeid(numeros.at(i))== typeid(Binario)){
-							   cout << "binario" << endl;
-						   } else if (typeid(numeros.at(i)) == typeid(Hexadecimal)) {
-							   cout << "hexadecimal" << endl;
-						   } else if (typeid(numeros.at(i)) == typeid(Octal)) {
-							   cout << "octal" << endl;
+						   if(numeros.at(i).getTipo() == "Binario"){
+							   cout << i << ". Binario: " << numeros.at(i).getNumero() << endl;
+						   } else if (numeros.at(i).getTipo() == "Hexadecimal") {
+							   cout << i << ". Hexadecimal: " << numeros.at(i).getNumero() << endl;
+						   } else if (numeros.at(i).getTipo() == "Octal") {
+							   cout << i << ". Octal: " << numeros.at(i).getNumero() << endl;
 						   } else {
-							   cout << "this should never be true but well here we are" <<endl;
+							   cout << i << ". Decimal: " << numeros.at(i).getNumero() << endl;
 						   }
 					   }
-					   int hexa = 10011011;
-					   stringstream nuevo_numero;
-						nuevo_numero << hexa;
-					   string NuevoNumero = nuevo_numero.str();
-					   cout << NuevoNumero << endl;
-					   int size = NuevoNumero.size() - 1;
-					   int acumulador = 0;
-					   for (int i = 0; i < NuevoNumero.size(); i++) {
-							if (NuevoNumero[i] == '0') {
-								acumulador += 0 * (pow(2, size));
-							} else {
-								acumulador += 1 * (pow(2, size));
-							}
-							size--;
-					   }
-					   cout << acumulador << endl;
-					   int octal = 37;
-						stringstream nuevo_numero2;
-						nuevo_numero2 << octal;
-					   string NuevoNumero2 = nuevo_numero2.str();
-					   cout << NuevoNumero2 << endl;
-					   int acumulador2 = 0;
-					   int size2 = NuevoNumero2.size() - 1;
-						for (int i = 0; i < NuevoNumero2.size(); i++) {
-							stringstream nuevo_numero3;
-							nuevo_numero3 << NuevoNumero2.at(i);
-					   		string NuevoNumero3 = nuevo_numero3.str();
-							cout << NuevoNumero3 << endl;
-							acumulador2 += stoi(NuevoNumero3) * (pow(8, size2));
-							size2 --;
-						}
-						cout << acumulador2 << endl;
+					   cout << "Ingrese la posicion del primer numero: ";
+					   int numero1;
+					   cin >> numero1;
+					   if(numeros.at(numero1).getTipo() == "Binario"){
+						   stringstream nuevo_numero;
+						   nuevo_numero << numeros.at(numero1).getNumero();
+						   string NuevoNumero = nuevo_numero.str();
+						   int size = NuevoNumero.size() - 1;
+						   int acumulador = 0;
+						   for (int i = 0; i < NuevoNumero.size(); i++) {
+							   if (NuevoNumero[i] == '0') {
+								   acumulador += 0 * (pow(2, size));
+							   } else {
+								   acumulador += 1 * (pow(2, size));
+							   }
+							   size--;
+						   }
+						   numeros.at(numero1).setNumero(acumulador);
+					   } else if (numeros.at(numero1).getTipo() == "Hexadecimal") {
+						   cout << "No se puede con Hexadecimal :(" << endl;
+					   } else if (numeros.at(numero1).getTipo() == "Octal") {
+						   stringstream nuevo_numero2;
+						   nuevo_numero2 << numeros.at(numero1).getNumero();
+						   string NuevoNumero2 = nuevo_numero2.str();
+						   cout << NuevoNumero2 << endl;
+						   int acumulador2 = 0;
+						   int size2 = NuevoNumero2.size() - 1;
+						   for (int i = 0; i < NuevoNumero2.size(); i++) {
+							   stringstream nuevo_numero3;
+							   nuevo_numero3 << NuevoNumero2.at(i);
+							   string NuevoNumero3 = nuevo_numero3.str();
+							   acumulador2 += stoi(NuevoNumero3) * (pow(8, size2));
+							   size2 --;
+						   }
+						   numeros.at(numero1).setNumero(acumulador2);
+					   } 
+					   cout << "Ingrese la posicion del segundo numero: ";
+					   int numero2;
+					   cin >> numero2;
+						if(numeros.at(numero2).getTipo() == "Binario"){
+						   stringstream nuevo_numero;
+						   nuevo_numero << numeros.at(numero2).getNumero();
+						   string NuevoNumero = nuevo_numero.str();
+						   int size = NuevoNumero.size() - 1;
+						   int acumulador = 0;
+						   for (int i = 0; i < NuevoNumero.size(); i++) {
+							   if (NuevoNumero[i] == '0') {
+								   acumulador += 0 * (pow(2, size));
+							   } else {
+								   acumulador += 1 * (pow(2, size));
+							   }
+							   size--;
+						   }
+						   numeros.at(numero2).setNumero(acumulador);
+					   } else if (numeros.at(numero2).getTipo() == "Hexadecimal") {
+						   cout << "No se puede con Hexadecimal :(" << endl;
+					   } else if (numeros.at(numero2).getTipo() == "Octal") {
+						   stringstream nuevo_numero2;
+						   nuevo_numero2 << numeros.at(numero2).getNumero();
+						   string NuevoNumero2 = nuevo_numero2.str();
+						   cout << NuevoNumero2 << endl;
+						   int acumulador2 = 0;
+						   int size2 = NuevoNumero2.size() - 1;
+						   for (int i = 0; i < NuevoNumero2.size(); i++) {
+							   stringstream nuevo_numero3;
+							   nuevo_numero3 << NuevoNumero2.at(i);
+							   string NuevoNumero3 = nuevo_numero3.str();
+							   acumulador2 += stoi(NuevoNumero3) * (pow(8, size2));
+							   size2 --;
+						   }
+						   numeros.at(numero2).setNumero(acumulador2);
+					   } 
+
+					   Numero nuevo_num = numeros.at(numero1) + numeros.at(numero2);
+					   cout << "Suma Final: " << nuevo_num.getNumero() << endl;
+					  
 				   }break;
 			case 3:{
+					cout << "-> Restar" << endl;
+					   for (int i = 0; i < numeros.size(); i++) {
+						   if(numeros.at(i).getTipo() == "Binario"){
+							   cout << i << ". Binario: " << numeros.at(i).getNumero() << endl;
+						   } else if (numeros.at(i).getTipo() == "Hexadecimal") {
+							   cout << i << ". Hexadecimal: " << numeros.at(i).getNumero() << endl;
+						   } else if (numeros.at(i).getTipo() == "Octal") {
+							   cout << i << ". Octal: " << numeros.at(i).getNumero() << endl;
+						   } else {
+							   cout << i << ". Decimal: " << numeros.at(i).getNumero() << endl;
+						   }
+					   }
+					   cout << "Ingrese la posicion del primer numero: ";
+					   int numero1;
+					   cin >> numero1;
+					   if(numeros.at(numero1).getTipo() == "Binario"){
+						   stringstream nuevo_numero;
+						   nuevo_numero << numeros.at(numero1).getNumero();
+						   string NuevoNumero = nuevo_numero.str();
+						   int size = NuevoNumero.size() - 1;
+						   int acumulador = 0;
+						   for (int i = 0; i < NuevoNumero.size(); i++) {
+							   if (NuevoNumero[i] == '0') {
+								   acumulador += 0 * (pow(2, size));
+							   } else {
+								   acumulador += 1 * (pow(2, size));
+							   }
+							   size--;
+						   }
+						   numeros.at(numero1).setNumero(acumulador);
+					   } else if (numeros.at(numero1).getTipo() == "Hexadecimal") {
+						   cout << "No se puede con Hexadecimal :(" << endl;
+					   } else if (numeros.at(numero1).getTipo() == "Octal") {
+						   stringstream nuevo_numero2;
+						   nuevo_numero2 << numeros.at(numero1).getNumero();
+						   string NuevoNumero2 = nuevo_numero2.str();
+						   cout << NuevoNumero2 << endl;
+						   int acumulador2 = 0;
+						   int size2 = NuevoNumero2.size() - 1;
+						   for (int i = 0; i < NuevoNumero2.size(); i++) {
+							   stringstream nuevo_numero3;
+							   nuevo_numero3 << NuevoNumero2.at(i);
+							   string NuevoNumero3 = nuevo_numero3.str();
+							   acumulador2 += stoi(NuevoNumero3) * (pow(8, size2));
+							   size2 --;
+						   }
+						   numeros.at(numero1).setNumero(acumulador2);
+					   } 
+					   cout << "Ingrese la posicion del segundo numero: ";
+					   int numero2;
+					   cin >> numero2;
+						if(numeros.at(numero2).getTipo() == "Binario"){
+						   stringstream nuevo_numero;
+						   nuevo_numero << numeros.at(numero2).getNumero();
+						   string NuevoNumero = nuevo_numero.str();
+						   int size = NuevoNumero.size() - 1;
+						   int acumulador = 0;
+						   for (int i = 0; i < NuevoNumero.size(); i++) {
+							   if (NuevoNumero[i] == '0') {
+								   acumulador += 0 * (pow(2, size));
+							   } else {
+								   acumulador += 1 * (pow(2, size));
+							   }
+							   size--;
+						   }
+						   numeros.at(numero2).setNumero(acumulador);
+					   } else if (numeros.at(numero2).getTipo() == "Hexadecimal") {
+						   cout << "No se puede con Hexadecimal :(" << endl;
+					   } else if (numeros.at(numero2).getTipo() == "Octal") {
+						   stringstream nuevo_numero2;
+						   nuevo_numero2 << numeros.at(numero2).getNumero();
+						   string NuevoNumero2 = nuevo_numero2.str();
+						   cout << NuevoNumero2 << endl;
+						   int acumulador2 = 0;
+						   int size2 = NuevoNumero2.size() - 1;
+						   for (int i = 0; i < NuevoNumero2.size(); i++) {
+							   stringstream nuevo_numero3;
+							   nuevo_numero3 << NuevoNumero2.at(i);
+							   string NuevoNumero3 = nuevo_numero3.str();
+							   acumulador2 += stoi(NuevoNumero3) * (pow(8, size2));
+							   size2 --;
+						   }
+						   numeros.at(numero2).setNumero(acumulador2);
+					   } 
+
+					   Numero nuevo_num = numeros.at(numero1) - numeros.at(numero2);
+					   cout << "Resta Final: " << nuevo_num.getNumero() << endl;
 
 				   }break;
 			case 4:{
+						cout << "-> Multiplicar" << endl;
+					   for (int i = 0; i < numeros.size(); i++) {
+						   if(numeros.at(i).getTipo() == "Binario"){
+							   cout << i << ". Binario: " << numeros.at(i).getNumero() << endl;
+						   } else if (numeros.at(i).getTipo() == "Hexadecimal") {
+							   cout << i << ". Hexadecimal: " << numeros.at(i).getNumero() << endl;
+						   } else if (numeros.at(i).getTipo() == "Octal") {
+							   cout << i << ". Octal: " << numeros.at(i).getNumero() << endl;
+						   } else {
+							   cout << i << ". Decimal: " << numeros.at(i).getNumero() << endl;
+						   }
+					   }
+					   cout << "Ingrese la posicion del primer numero: ";
+					   int numero1;
+					   cin >> numero1;
+					   if(numeros.at(numero1).getTipo() == "Binario"){
+						   stringstream nuevo_numero;
+						   nuevo_numero << numeros.at(numero1).getNumero();
+						   string NuevoNumero = nuevo_numero.str();
+						   int size = NuevoNumero.size() - 1;
+						   int acumulador = 0;
+						   for (int i = 0; i < NuevoNumero.size(); i++) {
+							   if (NuevoNumero[i] == '0') {
+								   acumulador += 0 * (pow(2, size));
+							   } else {
+								   acumulador += 1 * (pow(2, size));
+							   }
+							   size--;
+						   }
+						   numeros.at(numero1).setNumero(acumulador);
+					   } else if (numeros.at(numero1).getTipo() == "Hexadecimal") {
+						   cout << "No se puede con Hexadecimal :(" << endl;
+					   } else if (numeros.at(numero1).getTipo() == "Octal") {
+						   stringstream nuevo_numero2;
+						   nuevo_numero2 << numeros.at(numero1).getNumero();
+						   string NuevoNumero2 = nuevo_numero2.str();
+						   cout << NuevoNumero2 << endl;
+						   int acumulador2 = 0;
+						   int size2 = NuevoNumero2.size() - 1;
+						   for (int i = 0; i < NuevoNumero2.size(); i++) {
+							   stringstream nuevo_numero3;
+							   nuevo_numero3 << NuevoNumero2.at(i);
+							   string NuevoNumero3 = nuevo_numero3.str();
+							   acumulador2 += stoi(NuevoNumero3) * (pow(8, size2));
+							   size2 --;
+						   }
+						   numeros.at(numero1).setNumero(acumulador2);
+					   } 
+					   cout << "Ingrese la posicion del segundo numero: ";
+					   int numero2;
+					   cin >> numero2;
+						if(numeros.at(numero2).getTipo() == "Binario"){
+						   stringstream nuevo_numero;
+						   nuevo_numero << numeros.at(numero2).getNumero();
+						   string NuevoNumero = nuevo_numero.str();
+						   int size = NuevoNumero.size() - 1;
+						   int acumulador = 0;
+						   for (int i = 0; i < NuevoNumero.size(); i++) {
+							   if (NuevoNumero[i] == '0') {
+								   acumulador += 0 * (pow(2, size));
+							   } else {
+								   acumulador += 1 * (pow(2, size));
+							   }
+							   size--;
+						   }
+						   numeros.at(numero2).setNumero(acumulador);
+					   } else if (numeros.at(numero2).getTipo() == "Hexadecimal") {
+						   cout << "No se puede con Hexadecimal :(" << endl;
+					   } else if (numeros.at(numero2).getTipo() == "Octal") {
+						   stringstream nuevo_numero2;
+						   nuevo_numero2 << numeros.at(numero2).getNumero();
+						   string NuevoNumero2 = nuevo_numero2.str();
+						   cout << NuevoNumero2 << endl;
+						   int acumulador2 = 0;
+						   int size2 = NuevoNumero2.size() - 1;
+						   for (int i = 0; i < NuevoNumero2.size(); i++) {
+							   stringstream nuevo_numero3;
+							   nuevo_numero3 << NuevoNumero2.at(i);
+							   string NuevoNumero3 = nuevo_numero3.str();
+							   acumulador2 += stoi(NuevoNumero3) * (pow(8, size2));
+							   size2 --;
+						   }
+						   numeros.at(numero2).setNumero(acumulador2);
+					   } 
 
+					   Numero nuevo_num = numeros.at(numero1) * numeros.at(numero2);
+					   cout << "Multiplicacion Final: " << nuevo_num.getNumero() << endl;
 				   }break;
 			case 5:{
 					   cout << "Hasta Pronto!!" << endl;
